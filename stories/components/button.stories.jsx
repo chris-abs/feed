@@ -1,28 +1,25 @@
-import {Button} from "../../components/Button";
+import {Button as B} from '../../components/Button';
 
 export default {
-    title: "Components/Button",
-    component: Button,
+    title: 'Components/Button',
+    component: B,
     argTypes: {
-        size: {
-            options: ["small", "medium", "large"],
-            control: {type: "radio"},
+        type: {
+            options: ['primary', 'secondary', 'tertiary'],
+            control: {type: 'radio'},
         },
-        fontWeight: {
-            options: ["light", "normal", "bold"],
-            control: {type: "radio"},
+        size: {
+            options: ['sm', 'md', 'lg'],
+            control: {type: 'radio'},
         }
     }
 };
 
-const Template = args => <Button {...args} />
+const Template = args => <B {...args} />
 
 export const PrimaryButton = Template.bind({})
 PrimaryButton.args = {
-    color: "white",
-    backgroundColor: "blue",
-    label: "Press me",
-    size: "medium",
-    fontWeight: "bold",
-    borderRadius: true,
+    content: 'Press me',
+    size: 'lg',
+    type: 'tertiary',
 }

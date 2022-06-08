@@ -1,37 +1,53 @@
-import styles from './Button.module.css'
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
+import styled from 'styled-components'
 
-export function Button({ label, borderRadius, size = "medium", fontWeight = "bold", color = "white", backgroundColor = "blue", onClick}) {
-    let scale = 1
-    let radius = 0
-    let weight
-    if (size === "small") scale = 0.75
-    if (size === "large") scale = 1.5
-    if (fontWeight === "light") weight = "light"
-    if (fontWeight === "normal") weight = "normal"
-    if (fontWeight === "bold") weight = "bold"
-    if (borderRadius === true) radius = `${20}px`
-    const style = {
-        backgroundColor,
-        color,
-        padding: `${scale * 0.5}rem ${scale}rem`,
-        border: "none",
-        fontWeight: weight,
-        borderRadius: radius,
+const StyledBaseButton = styled.button`
+    color: white;
+    font-size: 1em;
+    margin: 1em;
+    padding: 0.25em 1em;
+    border-radius: 1em;
+    height: ${props => props.height}
+    width: ${props => props.width}
+`
+
+const PrimaryButton = styled(StyledBaseButton)`
+    background-color: blue;
+`
+
+const SecondaryButton = styled(StyledBaseButton)`
+    background-color: green; 
+`
+
+const TertiaryButton = styled(StyledBaseButton)`
+    background-color: pink; 
+`
+
+export function Button({onClick, type = 'primary', size = 'lg', content}) {
+    let height = '3vh'
+    let width = '5vw'
+    if (size === 'sm') {
+        height = '2vh'
+        width = '4vw'
     }
-    return (
-        <button onClick={onClick} style={style}>
-            {label}
-        </button>
-    )
+    if (size === 'lg') {
+        height = '4vh'
+        width = '6vw'
+    }
+    if (type === 'secondary') {
+        return <SecondaryButton onClick={onClick} height={height} width={width}>{content}</SecondaryButton>
+    }
+    if (type === 'tertiary') {
+        return <TertiaryButton onClick={onClick} height={height} width={width}>{content}</TertiaryButton>
+    }
+
+    return <PrimaryButton onClick={onClick} height={height} width={width}>{content}</PrimaryButton>
+
 }
 
 Button.prototype = {
-    label: PropTypes.string,
-    backgroundColor: PropTypes.string,
-    color: PropTypes.string,
-    size: PropTypes.oneOf(["small", "medium", "large"]),
-    fontWeight: PropTypes.oneOf(["bold", "normal", "light"]),
+    content: PropTypes.string,
+    size: PropTypes.oneOf(['sm', 'md', 'lg']),
+    type: PropTypes.oneOf(['primary', 'secondary', 'tertiary']),
     onClick: PropTypes.func,
-    borderRadius: PropTypes.bool,
 }
